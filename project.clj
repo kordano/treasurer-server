@@ -15,7 +15,7 @@
                        [express "4.13.3"]]
         :package {:scripts {:start "node index.js"}}}
   
-  :clean-targets^{:protect false} ["dist" "test/dist"]
+  :clean-targets ["dist"]
   
   :cljsbuild {:builds
               {:dev
@@ -29,8 +29,8 @@
                            :source-map true}}
                :test
                {:source-paths ["src" "test"]
-                :compiler {:output-to "test/dist/compiled.js"
-                           :output-dir "test/dist"
+                :compiler {:output-to "dist/test/compiled.js"
+                           :output-dir "dist/test"
                            :main treasurer-server.test-runner
                            :optimizations :none
                            :target :nodejs}}

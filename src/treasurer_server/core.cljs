@@ -1,17 +1,19 @@
 (ns treasurer-server.core
   (:require [cljs.nodejs :as node]))
 
+(def server-state (atom {}))
+
 (node/enable-util-print!)
 
-(def express (node/require "express"))
+(defn add-entry
+  "Adds new element to entries in state"
+  [state entry]
+  (swap! state update-in [:entries] #(if (= (type %) cljs.core/PersistentVector)
+                                       (conj % entry)
+                                       [entry]))
+  state)
 
-(defn say-hello! [req res]
-  (.send res "Hello world!"))
-
-(defn -main []
-  (let [app (express)]
-    (.get app "/" say-hello!)
-    (.listen app 3000 (fn []
-                        (println "Server started on port 3000")))))
-
-(set! *main-cli-fn* -main)
+(defn get-all
+  "Retrieves all elements from state entries"
+  [state]
+  (get-in @state [:entries])
