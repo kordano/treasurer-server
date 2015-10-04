@@ -5,28 +5,35 @@
                  [org.clojure/clojurescript "1.7.48"]]
   
   :profiles {:dev
-             {:dependencies [[midje "1.7.0"]]}}
+             {:plugins [[lein-doo "0.1.4"]]}}
  
   :plugins [[lein-cljsbuild "1.1.0"]
+            [lein-doo "0.1.5"]
             [lein-npm "0.6.1"]]
  
   :npm {:dependencies [[source-map-support "0.2.8"]
                        [express "4.13.3"]]
         :package {:scripts {:start "node index.js"}}}
   
-  :clean-targets ["dist"]
+  :clean-targets^{:protect false} ["dist" "test/dist"]
   
   :cljsbuild {:builds
               {:dev
-               {:source-paths ["src/treasurer_server"]
+               {:source-paths ["src"]
                 :compiler {:main treasurer_server.core
                            :output-to "dist/treasurer.js"
                            :output-dir "dist/out"
                            :target :nodejs
-                           
                            :cache-analysis true
                            :optimizations :none
                            :source-map true}}
+               :test
+               {:source-paths ["src" "test"]
+                :compiler {:output-to "test/dist/compiled.js"
+                           :output-dir "test/dist"
+                           :main treasurer-server.test-runner
+                           :optimizations :none
+                           :target :nodejs}}
                :prod
                {:source-paths ["src/treasurer_server"]
                 :compiler {:main treasurer_server.core
