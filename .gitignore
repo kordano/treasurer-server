@@ -1,4 +1,4 @@
 node_modules
 dist/out
+dist/test
 dist/treasurer.js
-test/dist
