@@ -12,7 +12,8 @@
             [lein-npm "0.6.1"]]
  
   :npm {:dependencies [[source-map-support "0.2.8"]
-                       [express "4.13.3"]]
+                       [express "4.13.3"]
+                       [socket.io "1.3.7"]]
         :package {:scripts {:start "node index.js"}}}
   
   :clean-targets ["dist"]
