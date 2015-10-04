@@ -4,7 +4,13 @@ Finance management backend using Clojurescript and node.js that will receive new
 
 ## How to run the tests
 
-`lein doo node test` will run node tests.
+First get all node dependencies:
+
+`lein npm install`
+
+Then run tests:
+
+`lein doo node test`
 
 ## License
 
